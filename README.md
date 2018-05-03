@@ -2,7 +2,7 @@
 - **第一步：**先安装nodejs，[传送门，已安装跳过](https://nodejs.org/en/ "点击安装地址，已安装跳过")
 - **第二步：**新建一个项目目录，在目录里空白处，按住Shift键不放，点击鼠标右键，打开命令框，输入`npm install -g vue-cli` [已安跳过]
 - **第三步：**命令框输入`vue init webpack`，出现的提示，默认按回车即可，当出现Use ESLint to lint your code开始，都可以选择N。
-- **第四步：**命令框输入`npm install`
+- **第四步：**命令框输入`npm install`[有node_modules目录了跳过]
 - **第五步：**我们的`<style scoped lang="scss">`默认使用sass写样式，所以命令框输入 `npm install sass-loader -D`，安装完成了继续输入`npm install node-sass -D`
 - **第六步：**可以开工了。如果需要第三方css ui框架，可以自由选择。列一下我们常用的：
 ####bootstrap
@@ -80,8 +80,10 @@ Vue.component('cell', Cell)
 ```
 - **第七步：**页面需要做成动态获取数据，那么我们继续命令框输入`npm install axios -D`，有时候接口需要跨域，那么我们就得配一下跨域，config目录index.js
 ```csharp
+
 //比如你的请求方法是http://yingzaiqidian.cn/login
-//需要在方法里去掉http://yingzaiqidian.cn
+//api的config的baseURL为http://yingzaiqidian.cn
+//那么做跨域模拟，需要baseURL为""
 //最终看到的请求方法应该是http://localhost/api/login
 proxyTable: {
 	'/api': {
@@ -92,6 +94,7 @@ proxyTable: {
         }
 	}
 }
+
 ```
 - **第八步：**接口还没开发好，我们需要一下模拟数据，那么命令框输入
 `npm install axios-mock-adapter -D`
@@ -99,43 +102,32 @@ proxyTable: {
 mock配置
 
 ```csharp
-//mock目录index.js和data目录，data目录下建index.js存放返回的数据，
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-import data from './data';
+//mock目录index.js和config目录，config目录index.js为操作模拟数据js，data目录为目录数据源js
+
+import axios from 'axios'
+import MockAdapter from 'axios-mock-adapter'
+import config from './config'
 
 export default {
-/**
- * mock bootstrap
- */
-	bootstrap() {
-		let mock = new MockAdapter(axios);
-		//所有拦截请求都走该接口
-		mock.onAny().reply(config => {
-			return new Promise((resolve, reject) => {
-				setTimeout(() => {
-					let method = config.method.toUpperCase();
-					let params = {};
-	
-					if(method === 'POST' || method === 'PUT') {
-						params = config.data;
-					} else {
-						params = config.params;
-					}
-					//这里是本人接口结构,由方法作为字段，查询在data目录下对应数据
-					//这里可以通过config.url调用接口地址来判断返回对应值
-					if(params.method && data[params.method]) {
-						resolve([200, data[params.method]]);
-					}
-					else{
-						//调不到本地数据将返回500异常
-						resolve([200, config.url || config.baseURL]);
-					}			
-				}, 1000);
-			});
-		});
-	}
+    bootstrap(_errBack) {
+        let mock = new MockAdapter(axios);
+        //所有拦截请求都走该接口
+        mock.onAny().reply(axiosObj => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    let _mockData = config.mockData(axiosObj.url.toLowerCase());
+                    if (_mockData) {
+                        resolve([200, _mockData]);
+                    }
+                    else {
+                        resolve([200, _errBack(axiosObj.url || axiosObj.baseURL)]);
+                    }
+                }, config.mockTime);
+            });
+        });
+    }
 }
+
 ```
 - **第九步：**需要做数据管理，那么命令框输入`npm install vuex -D`
 
@@ -160,17 +152,16 @@ export default new Vuex.Store({
 1. 打包build的时候config目录里的index.js的productionSourceMap为false
 2. router.js动态配置
 ```csharp
+
 import Vue from 'vue'
 import Router from 'vue-router'
-
 Vue.use(Router)
-
-export default new Router({
-	//mode: 'history',
-	routes: [{
+const router = new Router({
+  routes: [
+    {
 			path: '/home',
 			name: 'home',
-			component: resolve => require(['@/pages/Home.vue'], resolve)
+			component: resolve => require(['@/pages/Home'], resolve)
 		},
 		{
 			path: '*',
@@ -178,13 +169,29 @@ export default new Router({
 				path: '/home'
 			}
 		}
-	]
+  ]
 })
+router.beforeEach((to, from, next) => {
+  /*if (to.path == '/login') {
+    sessionStorage.removeItem('user');
+  }
+  let user = JSON.parse(sessionStorage.getItem('user'));
+  if (!user && to.path != '/login') {
+    next({ path: '/login' })
+  } else {
+    next()
+  }*/
+  next()
+})
+export default router
+
 ```
 3.细节问题
 ```csharp
+
 //发布config目录index.js需要修改build的assetsPublicPath: './',
 //build目录utils.js配置
+
 if (options.extract) {
   return ExtractTextPlugin.extract({
     use: loaders,
@@ -195,7 +202,40 @@ if (options.extract) {
   return ['vue-style-loader'].concat(loaders)
 }
 //webpack.base.conf.js
+//npm install babel-polyfill -D
 entry: {
    app: ["babel-polyfill", "./src/main.js"]//'./src/main.js'//解决IE es6兼容问题
 }
+
 ```
+4.最终main.js结构
+
+```csharp
+
+import babelpolyfill from 'babel-polyfill'
+
+import Vue from 'vue'
+import App from './App'
+import router from './router'
+import api from './api'
+import store from './vuex/store'
+
+import Mock from './mock'
+
+
+Vue.prototype.$api = api
+Vue.config.productionTip = false
+
+api.mock && Mock.bootstrap(api.errBack);
+
+new Vue({
+  el: '#app',
+  store,
+  router,
+  render: h => h(App)
+}).$mount('#app')
+
+```
+5.总结
+
+######互相学习
