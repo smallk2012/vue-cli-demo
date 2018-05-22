@@ -8,7 +8,6 @@ import store from './vuex/store'
 
 import Mock from './mock'
 
-
 Vue.prototype.$api = api
 Vue.config.productionTip = false
 
