@@ -5,11 +5,11 @@ const debug = true
 /**
  * mock = true 开启模拟数据
  */
-const mock = true
+const mock = false
 /**
  * baseURL 接口默认域名入口
  */
-const baseURL = "http://httpbin.org"
+const baseURL = "http://192.168.110.105"
 /**
  * 统一打印调用方法
  * @param {需要打印的参数} _param 
@@ -35,5 +35,6 @@ export default {
 	debug,
 	mock,
 	baseURL,
-	errBack
+	errBack,
+	log
 }

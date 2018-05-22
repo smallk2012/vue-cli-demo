@@ -12,15 +12,9 @@ export default {
     }
   },
   mounted(){
-    this.$api.get('',(res)=>{
+    this.$api.post('/ajax/test.php',(res)=>{
       console.log(res)
-    })
-    this.$api.get('/login2',(res)=>{
-      console.log(res)
-    })
-    this.$api.get('/login',(res)=>{
-      console.log(res)
-    })
+    },{a:'xxss'})
   }
 }
 </script>

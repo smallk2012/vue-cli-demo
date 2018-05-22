@@ -10,6 +10,7 @@ export default {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
                     let _mockData = config.mockData(axiosObj.url.toLowerCase());
+                    //这里修改一下接口固定格式、_errBack回调函数也要统一
                     if (_mockData) {
                         resolve([200, _mockData]);
                     }
