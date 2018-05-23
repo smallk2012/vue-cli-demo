@@ -28,7 +28,7 @@ function apiAxios(_method, _url, _callback, _params) {
 			api.log("请求方法：" + _method);
 			api.log("请求链接：" + api.baseURL + _url);
 			api.log("请求参数：" + JSON.stringify(_params));
-			api.log(JSON.stringify(res.data));
+			api.log(JSON.stringify(err));
 			_callback && _callback(api.errBack(err));
 		})
 }
