@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    {{msg}}
+    <div class="demo">{{msg}}</div>
   </div>
 </template>
 
@@ -21,4 +21,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
+  @import  '../../assets/_var.scss';
+  .demo{
+    width: px2rem(100px);
+    height: px2rem(50px);
+    font-size: px2rem(24px);
+  }
 </style>
