@@ -1,7 +1,7 @@
 /**
  * debug = true 开启数据打印模式
  */
-const debug = true
+const debug = false
 /**
  * mock = true 开启模拟数据
  */
@@ -10,6 +10,12 @@ const mock = false
  * baseURL 接口默认域名入口
  */
 const baseURL = "http://192.168.110.105"
+/**
+ * 所有请求链接
+ */
+const url = {
+	login:"/api/login"
+}
 /**
  * 统一打印调用方法
  * @param {需要打印的参数} _param 
@@ -36,5 +42,6 @@ export default {
 	mock,
 	baseURL,
 	errBack,
-	log
+	log,
+	url
 }
