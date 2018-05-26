@@ -30,7 +30,21 @@ export default {
         }
     },
     mounted() {
-        this.$api.post(
+        this.$api.get(
+            this.$api.url.login,
+            res => {
+                console.log(res);
+            },
+            { a: "xxss" }
+        );
+        this.$api.get(
+            this.$api.url.login,
+            res => {
+                console.log(res);
+            },
+            { a: "xxss" }
+        );
+        this.$api.get(
             this.$api.url.login,
             res => {
                 console.log(res);

@@ -1,7 +1,7 @@
 /**
  * debug = true 开启数据打印模式
  */
-const debug = false
+const debug = true
 /**
  * mock = true 开启模拟数据
  */
@@ -9,12 +9,12 @@ const mock = false
 /**
  * baseURL 接口默认域名入口
  */
-const baseURL = "http://192.168.110.105"
+const baseURL = "http://httpbin.org"
 /**
  * 所有请求链接
  */
 const url = {
-	login:"/api/login"
+	login:"/ip"
 }
 /**
  * 统一打印调用方法
