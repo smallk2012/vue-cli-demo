@@ -8,6 +8,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import $ from '../../../static/js/jquery-1.11.1.min'
 export default {
     name: "Home",
     data() {
@@ -51,6 +52,18 @@ export default {
             },
             { a: "xxss" }
         );
+        //http://www.runoob.com/jquery/ajax-ajax.html
+        $.ajax({
+				type: "GET",
+				url: "http://httpbin.org/ip", 
+				data: {
+					acc: "cc",
+					psw: "123456"
+				}, 
+				success: function(result) {
+					console.log(result)
+				}
+			});
     }
 };
 </script>
