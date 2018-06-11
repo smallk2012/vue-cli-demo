@@ -1,5 +1,6 @@
 import axios from 'axios'
 import cf from './config'
+import urls from './urls'
 import Qs from 'qs'//必须引入这个处理post参数不然后端接收不到
 
 function apiAxios(_method, _url, _callback, _params) {
@@ -87,4 +88,6 @@ let api = {
 	}
 }
 Object.assign(api, cf);
+Object.assign(api, urls);
+
 export default api

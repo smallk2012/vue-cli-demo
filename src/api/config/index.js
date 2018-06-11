@@ -10,12 +10,7 @@ const mock = false
  * baseURL 接口默认域名入口
  */
 const baseURL = "http://httpbin.org"
-/**
- * 所有请求链接
- */
-const url = {
-	login:"/ip"
-}
+
 /**
  * 统一打印调用方法
  * @param {需要打印的参数} _param 
@@ -42,6 +37,5 @@ export default {
 	mock,
 	baseURL,
 	errBack,
-	log,
-	url
+	log
 }
