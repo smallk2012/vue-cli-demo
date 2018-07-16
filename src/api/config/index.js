@@ -19,7 +19,7 @@ const errBack = (_errMsg) => {
 	let _obj = {};
 	_obj.code = -1000;
 	_obj.msg = _errMsg;
-	alert("报错时间返回的数据格式，必须弹一弹，很多人忘记改了")
+	alert("报错事件返回的数据格式，必须弹一弹，很多人忘记改了 api/config/index.js")
 	return _obj;
 }
 /**
