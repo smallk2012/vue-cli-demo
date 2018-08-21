@@ -37,7 +37,6 @@ import MultipleXAxis from "../../../static/chart/MultipleXAxis";
 import BubbleGradient from "../../../static/chart/BubbleGradient";
 import Funnel from "../../../static/chart/Funnel";
 import Gauge from "../../../static/chart/Gauge";
-import Weather from "../../../static/chart/Weather";
 
 export default {
   name: "Home",
@@ -58,8 +57,7 @@ export default {
         MultipleXAxis,
         BubbleGradient,
         Funnel,
-        Gauge,
-        Weather
+        Gauge
       ],
       dragEl: null,
       trees: [
