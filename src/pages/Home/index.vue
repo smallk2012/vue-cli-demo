@@ -9,6 +9,7 @@
 <script>
 import { mapGetters } from "vuex";
 import $ from '../../../static/js/jquery-1.11.1.min'
+import tool from "../../util/tool";
 export default {
     name: "Home",
     data() {
@@ -48,6 +49,7 @@ export default {
         this.$api.get(
             this.$api.url.login,
             res => {
+                //这里处理数据会触发catch
                 console.log(res);
             },
             { a: "xxss" }
@@ -63,7 +65,11 @@ export default {
 				success: function(result) {
 					console.log(result)
 				}
-			});
+            });
+        this.$api.log(tool.bytesToSize(1100,2))
+        this.$api.log(tool.highlightFormat("我的w 是w你",'w'))
+        this.$api.log(tool.kNumFormat(null))
+        this.$api.log(tool.numUnitFormat(1234567890))
     }
 };
 </script>
