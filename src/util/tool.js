@@ -6,6 +6,17 @@ const trim = (str) => {
     return str.replace(/(^\s*)|(\s*$)/g, "");
 }
 /**
+ * 字段返回null的时候统一处理
+ * 之所以出现null，在某些情况下null代表未录入，和0是有区别的
+ * @param {*} __value 
+ * @param {*} __unit 
+ */
+const nullFormat = (__value,__unit) => {
+    __unit = __unit || "";
+    __value = __value == null ? '--' : __value + __unit;
+    return __value;
+}
+/**
  * 千分位分隔
  * @param {数字} __num 
  */
@@ -96,5 +107,6 @@ export default {
     bytesToSize,
     highlightFormat,
     kNumFormat,
-    numUnitFormat
+    numUnitFormat,
+    nullFormat
 }
