@@ -12,11 +12,11 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://yingzaiqidian.cn', // 你接口的域名
+        target: 'http://httpbin.org', // 你接口的域名
         changeOrigin: true,
-        pathRewrite: {                
-                '^/api': ''
-            }
+        pathRewrite: {
+          '^/api': ''
+        }
       }
     },
 
@@ -28,7 +28,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */

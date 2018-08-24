@@ -7,9 +7,9 @@ const debug = true
  */
 const mock = false
 /**
- * baseURL 接口默认域名入口
+ * baseURL 接口默认入口
  */
-const baseURL = "http://httpbin.org"
+const baseURL = debug ? "/api" : ""
 
 /**
  * 请求数据报错回调方法
