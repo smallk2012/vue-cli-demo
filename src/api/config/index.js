@@ -1,5 +1,5 @@
 /**
- * debug = true 开启数据打印模式
+ * debug = true 开启数据打印模式debug = true 开启数据打印模式debug = true 开启数据打印模式debug = true 开启数据打印模式
  */
 const debug = false
 /**
