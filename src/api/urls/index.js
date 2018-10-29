@@ -3,7 +3,7 @@
  */
 const url = {
     ip:"/ip",
-	login:"/login"
+	login:"/ip"
 }
 export default {
 	url
